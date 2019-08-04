@@ -66,7 +66,7 @@ class InputAmount extends Component {
     } = this;
     return (
       <div className="input-amount__wrapper">
-        <h3>Input Amount</h3>
+        <h3>Amount</h3>
         <form onSubmit={calculateNominal}>
           <input
             type="text"
