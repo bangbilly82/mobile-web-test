@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { returnNominal, amountParser } from "../utils/CurrencyFormatter";
+import { returnNominal, amountParser, indonesiaCurrencyFormatter } from "../utils/CurrencyFormatter";
 
 class InputAmount extends Component {
   state = {
@@ -21,12 +21,7 @@ class InputAmount extends Component {
     const { state, setErrorValidation } = this;
     evt.preventDefault();
     if (state.amount.length) {
-      let amount;
-      if (isNaN(state.amount)) {
-        amount = amountParser(state.amount);
-      } else {
-        amount = state.amount;
-      }
+      const amount = amountParser(state.amount);
       const nominal = returnNominal(amount);
       this.setState({
         denom: amount,
@@ -51,7 +46,7 @@ class InputAmount extends Component {
     return state.nominal.map((item, index) => {
       return (
         <tr key={index}>
-          <td width="50%">Rp {item.denom}</td>
+          <td width="50%">Rp {indonesiaCurrencyFormatter(item.denom)}</td>
           <td>
             {item.count === "leftdenom"
               ? "no available fraction"
@@ -91,7 +86,7 @@ class InputAmount extends Component {
             <table border={1}>
               <thead>
                 <tr>
-                  <th colspan={2}>Rp {state.denom}</th>
+                  <th colSpan={2}>Rp {indonesiaCurrencyFormatter(state.denom)}</th>
                 </tr>
                 <tr>
                   <th>Denom</th>

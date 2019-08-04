@@ -1,3 +1,5 @@
+import Numeral from 'numeral';
+
 const INDONESIAN_CURRENCY_FRACTION = [100000, 50000, 20000, 10000, 5000, 2000, 1000, 500, 200, 100, 50];
 
 const returnNominal = amount => {
@@ -48,14 +50,11 @@ const returnNominal = amount => {
 };
 
 const amountParser = amount => {
-  const indonesianPrefix = "rp";
-  const formatAmount = amount.toLowerCase();
-  const isContainPrefix = formatAmount.includes(indonesianPrefix);
-  let result;
-  if (isContainPrefix) {
-    result = formatAmount.replace(indonesianPrefix, "");
-  }
-  return result;
+  const matchPattern = amount.replace(/\b[,); +]+.*$/g, '');
+  const removeAllNonNumeric = matchPattern.replace(/\D/g,'');
+  return parseInt(removeAllNonNumeric, 10);
 };
 
-export { returnNominal, amountParser };
+const indonesiaCurrencyFormatter = value => Numeral(value).format('0,0[.]00');
+
+export { returnNominal, amountParser, indonesiaCurrencyFormatter };
